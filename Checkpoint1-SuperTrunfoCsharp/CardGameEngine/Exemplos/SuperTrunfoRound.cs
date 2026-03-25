@@ -9,16 +9,57 @@ public class SuperTrunfoRound : Round<SuperTrunfoCard>
 
     public override void PlayRound(IList<IPlayer<SuperTrunfoCard>> players)
     {
+        if (players == null || players.Count < 2)
+            throw new ArgumentException("É necessário pelo menos dois jogadores.");
+
+        foreach (var player in players)
+        {
+            if (player.Hand.Count == 0)
+                throw new InvalidOperationException($"Jogador {player.Name} não tem cartas para jogar.");
+        }
+
+        // Remove a primeira carta de cada jogador e guarda para comparação
+        var cardsPlayed = new Dictionary<IPlayer<SuperTrunfoCard>, SuperTrunfoCard>();
+        foreach (var player in players)
+        {
+            var card = player.PlayCard(0); // Remove e retorna a carta
+            cardsPlayed[player] = card;
+        }
+
+        IPlayer<SuperTrunfoCard> winner = null;
+        int bestValue = int.MinValue;
+
+        foreach (var kvp in cardsPlayed)
+        {
+            int value = kvp.Value.GetAttribute(_chosenAttribute);
+            if (value > bestValue)
+            {
+                bestValue = value;
+                winner = kvp.Key;
+            }
+            else if (value == bestValue)
+            {
+            
+                winner = null;
+            }
+        }
+
+        if (winner != null)
+        {
+            foreach (var card in cardsPlayed.Values)
+            {
+                winner.ReceiveCard(card);
+            }
+        }
         
-        var card0 = players[0].Hand[0];
-        var card1 = players[1].Hand[0];
-
-        if (card0.GetAttribute(_chosenAttribute) > card1.GetAttribute(_chosenAttribute))
-            Winner = players[0];
-        else if (card0.GetAttribute(_chosenAttribute) < card1.GetAttribute(_chosenAttribute))
-            Winner = players[1];
         else
-            Winner = null; 
+        {
+            foreach (var kvp in cardsPlayed)
+            {
+                kvp.Key.ReceiveCard(kvp.Value);
+            }
+        }
 
+        Winner = winner;
     }
 }

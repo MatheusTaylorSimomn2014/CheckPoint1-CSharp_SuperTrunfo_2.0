@@ -18,11 +18,10 @@ public class SuperTrunfoRound : Round<SuperTrunfoCard>
                 throw new InvalidOperationException($"Jogador {player.Name} não tem cartas para jogar.");
         }
 
-        // Remove a primeira carta de cada jogador e guarda para comparação
         var cardsPlayed = new Dictionary<IPlayer<SuperTrunfoCard>, SuperTrunfoCard>();
         foreach (var player in players)
         {
-            var card = player.PlayCard(0); // Remove e retorna a carta
+            var card = player.PlayCard(0); 
             cardsPlayed[player] = card;
         }
 

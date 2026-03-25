@@ -40,7 +40,7 @@ Veja no código as classes `SuperTrunfoCard`, `SuperTrunfoRound` e `SuperTrunfoG
   - `IGame.cs`
   - `Game.cs`
   - `IAttributeCard.cs`
-  - (exemplos opcionais na pasta `Examples/`)
+  - (exemplos opcionais na pasta `Examplos/`)
 
 ## Requisitos
 - .NET Standard 2.0 ou superior

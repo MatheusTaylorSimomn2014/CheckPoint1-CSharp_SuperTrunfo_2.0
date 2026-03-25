@@ -20,7 +20,6 @@ public class SuperTrunfoGame : Game<SuperTrunfoCard>
                 player.ReceiveCard(Deck.Draw());
         }
         
-        // Descarta as cartas restantes (ou poderia ser usado como prêmio)
         for (int i = 0; i < remainder; i++)
             Deck.Draw();
 

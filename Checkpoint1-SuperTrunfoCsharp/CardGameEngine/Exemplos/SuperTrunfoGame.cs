@@ -1,4 +1,3 @@
-// SuperTrunfoGame.cs (corrigido)
 public class SuperTrunfoGame : Game<SuperTrunfoCard>
 {
     private IPlayer<SuperTrunfoCard> _currentWinner;
